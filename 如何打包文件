@@ -1,0 +1,79 @@
+1.任务：
+点击按钮alert("你好");
+代码用jQuery来做，这里的jQuery不是传统的  <script src="jquery.js"></script>，而是在require("jquery");
+
+2.准备工作
+2.0 新建一个demo文件夹，然后在该文件夹里操作;
+2.1 npm init (一直enter) ;//如果之前做过这一步，这一步可以省略，或者不小心进入了这一步，可以用ctrl+c退出然后继续运行以下步骤
+2.2 npm install webpack --save
+2.3 npm install jquery --save
+
+3.新建文件
+文件目录如下：
+
+
+
+详细说明各个文件，
+index.html文件的内容：
+[html] view plain copy 在CODE上查看代码片派生到我的代码片
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+
+    <button>按钮</button>
+  //bundle.js是webpack编译之后的自动生成的文件
+  <script src="bundle.js"></script>
+  </body>
+</html>
+
+index.js的内容：
+[javascript] view plain copy 在CODE上查看代码片派生到我的代码片
+var $ = require('jquery') ;
+
+  $('button').click(function(){
+    alert('你好！') ;
+  })
+
+package.json的内容：
+先npm init 之后不停的enter 。之后npm install jquery  npm install webpack的时候会自动加入到包依赖中
+[html] view plain copy 在CODE上查看代码片派生到我的代码片
+{
+  "name": "02",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.0.0",
+    "webpack": "^1.13.1"
+  }
+}
+
+
+webpack.config.js的内容：
+[html] view plain copy 在CODE上查看代码片派生到我的代码片
+module.exports = {
+  //入口文件
+  entry:'./index.js',
+  output:{
+    //编译之后的文件放到当前目录并且命名为bundle.js
+    path:__dirname,
+    filename:'bundle.js'
+  }
+}
+
+在当前目录下打开命令台输入webpack . 出现如下内容
+
+
+
+文件夹里自动出现bundle.js
+
+在浏览器里打开index.html文件，点击“按钮”
